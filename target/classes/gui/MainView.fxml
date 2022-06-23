@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="415.0" prefWidth="738.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.gui.MainViewController">
+   <content>
+      <VBox prefHeight="431.0" prefWidth="731.0">
+         <children>
+            <MenuBar prefHeight="25.0" prefWidth="683.0">
+              <menus>
+                  <Menu mnemonicParsing="false" text="Consulta">
+                    <items>
+                      <MenuItem fx:id="menuItemConsulta" mnemonicParsing="false" onAction="#onMenuItemConsultaAction" text="Pesquisar/Marcar" />
+                    </items>
+                  </Menu>
+                <Menu mnemonicParsing="false" text="Paciente">
+                  <items>
+                    <MenuItem fx:id="menuItemPaciente" mnemonicParsing="false" onAction="#onMenuItemPacienteAction" text="Cadastro" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Empresa">
+                  <items>
+                        <MenuItem fx:id="menuItemEspecializacao" mnemonicParsing="false" onAction="#onMenuItemEspecializacaoAction" text="Especialização" />
+                    <MenuItem fx:id="menuItemMedico" mnemonicParsing="false" onAction="#onMenuItemMedicoAction" text="Medico" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Sobre">
+                    <items>
+                      <MenuItem fx:id="menuItemSobre" mnemonicParsing="false" onAction="#onMenuItemSobreAction" text="Sistema" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

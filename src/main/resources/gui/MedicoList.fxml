@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="414.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.gui.MedicoListController">
+   <children>
+      <Label prefHeight="23.0" prefWidth="513.0" text="Menu Médico" textOverrun="CLIP">
+         <VBox.margin>
+            <Insets right="10.0" top="10.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Franklin Gothic Heavy Italic" size="25.0" />
+         </font>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNovoAction" text="Novo" />
+            <Button fx:id="btBuscar" mnemonicParsing="false" onAction="#onBtBuscar" text="Buscar" />
+            <TextField fx:id="txtCampoBuscar" />
+        </items>
+      </ToolBar>
+      <TableView fx:id="tableViewProfissional" prefHeight="300.0" prefWidth="680.0">
+        <columns>
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="61.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="60.0" />
+          <TableColumn fx:id="tableColumnNome" prefWidth="123.0" text="NOME" />
+          <TableColumn fx:id="tableColumnEmail" prefWidth="119.0" text="EMAIL" />
+            <TableColumn fx:id="tableColumnData" prefWidth="131.0" text="DATA ANIVERSÁRIO" />
+            <TableColumn fx:id="tableColumnSalario" prefWidth="75.0" text="SALÁRIO" />
+            <TableColumn fx:id="tableColumnEspec" prefWidth="101.0" text="ESPECIALIDADE" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

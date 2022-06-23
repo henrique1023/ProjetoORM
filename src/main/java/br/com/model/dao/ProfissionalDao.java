@@ -1,0 +1,16 @@
+package br.com.model.dao;
+
+import java.util.List;
+
+import br.com.model.entities.Especializacao;
+import br.com.model.entities.Profissional;
+
+public interface ProfissionalDao {
+	void insert(Profissional obj);
+	void update(Profissional obj);
+	void deleteById(Integer id);
+	Profissional findById(Integer id);
+	List<Profissional> findByNome(String nome);
+	List<Profissional> findAll();
+	List<Profissional> findByEspecializacao(Especializacao especializacao);
+}
