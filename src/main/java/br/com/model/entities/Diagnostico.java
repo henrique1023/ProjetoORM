@@ -22,42 +22,39 @@ public class Diagnostico implements Serializable{
 	@Id
 	@Column(name = "id_diagnostico")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer IdDiag;
+	private Integer idDiag;
 	
 	@Column(name = "nome_diagnostico")
-	private String NomeDiag;
+	private String nomeDiag;
 	
 	public Diagnostico() {
 	}
+
 	public Diagnostico(Integer idDiag, String nomeDiag) {
-		this.IdDiag = idDiag;
-		this.NomeDiag = nomeDiag;
+		super();
+		this.idDiag = idDiag;
+		this.nomeDiag = nomeDiag;
 	}
 
 	public Integer getIdDiag() {
-		return IdDiag;
+		return idDiag;
 	}
 
 	public void setIdDiag(Integer idDiag) {
-		IdDiag = idDiag;
+		this.idDiag = idDiag;
 	}
 
 	public String getNomeDiag() {
-		return NomeDiag;
+		return nomeDiag;
 	}
 
 	public void setNomeDiag(String nomeDiag) {
-		NomeDiag = nomeDiag;
-	}
-
-	@Override
-	public String toString() {
-		return "Diagnostico [IdDiag=" + IdDiag + ", NomeDiag=" + NomeDiag + "]";
+		this.nomeDiag = nomeDiag;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(IdDiag);
+		return Objects.hash(idDiag);
 	}
 
 	@Override
@@ -69,7 +66,9 @@ public class Diagnostico implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Diagnostico other = (Diagnostico) obj;
-		return Objects.equals(IdDiag, other.IdDiag);
+		return Objects.equals(idDiag, other.idDiag);
 	}
+	
+	
 
 }
