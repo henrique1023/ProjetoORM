@@ -9,36 +9,32 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
-
-import org.hibernate.SessionFactory;
 
 import br.com.model.dao.PacienteDao;
 import br.com.model.entities.Paciente;
 
 public class PacienteDaoHiber implements PacienteDao {
 
-	private SessionFactory sf;
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo-jpa");
+	private EntityManagerFactory emf;
 
-	public PacienteDaoHiber(SessionFactory sf) {
-		this.sf = sf;
+	public PacienteDaoHiber(EntityManagerFactory emf) {
+		this.emf = emf;
 	}
 
 	@Override
 	public void insert(Paciente obj) {
-
 		EntityManager entityManager = emf.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
+		System.out.println(obj.getIdPaciente());
 		entityManager.persist(obj);
 		transaction.commit();
 	}
 
 	@Override
 	public void update(Paciente obj) {
-		EntityManager entityManager = sf.createEntityManager();
+		EntityManager entityManager = emf.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		entityManager.merge(obj);
@@ -47,7 +43,7 @@ public class PacienteDaoHiber implements PacienteDao {
 
 	@Override
 	public void delete(Paciente obj) {
-		EntityManager entityManager = sf.createEntityManager();
+		EntityManager entityManager = emf.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 		entityManager.remove(obj);
@@ -56,7 +52,7 @@ public class PacienteDaoHiber implements PacienteDao {
 
 	@Override
 	public Paciente findById(Paciente obj) {
-		EntityManager entityManager = sf.createEntityManager();
+		EntityManager entityManager = emf.createEntityManager();
 		obj = entityManager.find(Paciente.class, obj.getIdPaciente());
 		return obj;
 	}
@@ -87,7 +83,6 @@ public class PacienteDaoHiber implements PacienteDao {
 		return list;
 	}
 
-	@SuppressWarnings("deprecation")
 	private Paciente instatiatePaciente(Object[] o) throws SQLException {
 		Paciente paciente = new Paciente();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");

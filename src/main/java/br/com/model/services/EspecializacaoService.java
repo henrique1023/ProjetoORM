@@ -24,6 +24,6 @@ public class EspecializacaoService {
 	}
 	
 	public void remove(Especializacao obj) {
-		dao.deleteById(obj.getIdEspeci());
+		dao.delete(obj);
 	}
 }

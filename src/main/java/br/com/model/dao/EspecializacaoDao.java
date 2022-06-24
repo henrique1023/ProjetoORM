@@ -7,7 +7,7 @@ import br.com.model.entities.Especializacao;
 public interface EspecializacaoDao {
 	void insert(Especializacao obj);
 	void update(Especializacao obj);
-	void deleteById(Integer id);
-	Especializacao findById(Integer id);
+	void delete(Especializacao obj);
+	Especializacao findById(Especializacao obj);
 	List<Especializacao> findAll();
 }

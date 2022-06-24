@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import org.hibernate.SessionFactory;
-
 public class DB {
 	
 	private static Connection conn = null;
@@ -28,11 +26,6 @@ public class DB {
 			}
 		}
 		return conn;
-	}
-	
-	public static SessionFactory getSession() {
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		return sessionFactory;
 	}
 	
 	//essa fun��o serve para fechar a conex�o com o banco

@@ -1,13 +1,18 @@
 package br.com.model.dao;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import br.com.db.DB;
 import br.com.model.dao.impl.ConsultaDaoJDBC;
 import br.com.model.dao.impl.DiagnosticoDaoJDBC;
-import br.com.model.dao.impl.EspecializacaoDaoJDBC;
+import br.com.model.dao.impl.EspecializacaoDaoHiber;
 import br.com.model.dao.impl.PacienteDaoHiber;
 import br.com.model.dao.impl.ProfissionalDaoJDBC;
 
 public class DaoFactory {
+	
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo-jpa");
 	
 	public static DiagnosticoDao createDiagnosticoDao() {
 		return new DiagnosticoDaoJDBC(DB.getConnection());
@@ -18,7 +23,7 @@ public class DaoFactory {
 	}
 	
 	public static PacienteDao createPacienteDao() {
-		return new PacienteDaoHiber(DB.getSession());
+		return new PacienteDaoHiber(emf);
 	}
 	
 	public static ProfissionalDao createProfissionalDao() {
@@ -26,6 +31,6 @@ public class DaoFactory {
 	}
 	
 	public static EspecializacaoDao createEspecializacaoDao() {
-		return new EspecializacaoDaoJDBC(DB.getConnection());
+		return new EspecializacaoDaoHiber(emf);
 	}
 }
