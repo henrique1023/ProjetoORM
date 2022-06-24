@@ -14,11 +14,11 @@ br\com\model\entities\Consulta.class
 br\com\model\dao\PacienteDao.class
 br\com\gui\util\Utils.class
 br\com\gui\EspecializacaoFormController.class
+br\com\model\dao\impl\EspecializacaoDaoHiber.class
 br\com\gui\PacienteListController$1.class
 br\com\gui\util\Utils$1.class
 br\com\gui\util\Utils$4.class
 br\com\gui\EspecializacaoController.class
-br\com\db\HibernateUtil.class
 br\com\gui\MedicoListController$2.class
 br\com\model\dao\EspecializacaoDao.class
 br\com\model\services\EspecializacaoService.class
@@ -35,7 +35,6 @@ br\com\gui\MedicoListController.class
 br\com\db\DB.class
 br\com\gui\PacienteFormController.class
 br\com\model\services\ConsultaService.class
-br\com\model\dao\impl\EspecializacaoDaoJDBC.class
 br\com\model\entities\Paciente.class
 br\com\model\entities\Diagnostico.class
 br\com\gui\listeners\DataChangeListener.class

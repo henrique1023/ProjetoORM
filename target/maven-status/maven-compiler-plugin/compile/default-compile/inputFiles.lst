@@ -4,12 +4,10 @@ C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\c
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\entities\Paciente.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\services\DiagnosticoService.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\gui\util\Utils.java
-C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\db\HibernateUtil.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\gui\PacienteFormController.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\services\PacienteService.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\entities\Consulta.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\gui\EspecializacaoFormController.java
-C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\dao\impl\EspecializacaoDaoJDBC.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\dao\DiagnosticoDao.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\gui\MedicoListController.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\dao\impl\PacienteDaoHiber.java
@@ -22,6 +20,7 @@ C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\c
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\entities\Diagnostico.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\exceptions\ValidationException.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\gui\util\Alerts.java
+C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\dao\impl\EspecializacaoDaoHiber.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\dao\ProfissionalDao.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\gui\EspecializacaoController.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\db\DB.java
