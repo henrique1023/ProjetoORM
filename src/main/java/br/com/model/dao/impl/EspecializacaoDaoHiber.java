@@ -44,14 +44,15 @@ public class EspecializacaoDaoHiber implements EspecializacaoDao{
 		EntityManager entityManager = emf.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-		entityManager.remove(obj);
+		entityManager.remove(entityManager.find(Especializacao.class, obj.getIdEspeci()));
 		transaction.commit();
 	}
 
 	@Override
-	public Especializacao findById(Especializacao obj) {
+	public Especializacao findById(int i) {
 		EntityManager entityManager = emf.createEntityManager();
-		obj = entityManager.find(Especializacao.class, obj.getIdEspeci());
+		Especializacao obj = new Especializacao();
+		obj = entityManager.find(Especializacao.class, i);
 		return obj;
 	}
 

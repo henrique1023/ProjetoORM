@@ -8,6 +8,6 @@ public interface EspecializacaoDao {
 	void insert(Especializacao obj);
 	void update(Especializacao obj);
 	void delete(Especializacao obj);
-	Especializacao findById(Especializacao obj);
+	Especializacao findById(int i);
 	List<Especializacao> findAll();
 }

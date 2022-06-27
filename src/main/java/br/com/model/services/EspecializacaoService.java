@@ -26,4 +26,9 @@ public class EspecializacaoService {
 	public void remove(Especializacao obj) {
 		dao.delete(obj);
 	}
+	
+	public Especializacao findById(int i) {
+		Especializacao esp =  dao.findById(i);
+		return esp;
+	}
 }

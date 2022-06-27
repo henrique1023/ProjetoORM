@@ -24,7 +24,7 @@ public class ProfissionalService {
 	}
 
 	public void remove(Profissional obj) {
-		dao.deleteById(obj.getIdProfi());
+		dao.delete(obj);
 	}
 
 	public List<Profissional> findByNome(String nome) {

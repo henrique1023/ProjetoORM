@@ -8,7 +8,7 @@ import br.com.model.dao.impl.ConsultaDaoJDBC;
 import br.com.model.dao.impl.DiagnosticoDaoJDBC;
 import br.com.model.dao.impl.EspecializacaoDaoHiber;
 import br.com.model.dao.impl.PacienteDaoHiber;
-import br.com.model.dao.impl.ProfissionalDaoJDBC;
+import br.com.model.dao.impl.ProfissionalDaoHiber;
 
 public class DaoFactory {
 	
@@ -27,7 +27,7 @@ public class DaoFactory {
 	}
 	
 	public static ProfissionalDao createProfissionalDao() {
-		return new ProfissionalDaoJDBC(DB.getConnection());
+		return new ProfissionalDaoHiber(emf);
 	}
 	
 	public static EspecializacaoDao createEspecializacaoDao() {

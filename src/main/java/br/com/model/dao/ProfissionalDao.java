@@ -8,8 +8,8 @@ import br.com.model.entities.Profissional;
 public interface ProfissionalDao {
 	void insert(Profissional obj);
 	void update(Profissional obj);
-	void deleteById(Integer id);
-	Profissional findById(Integer id);
+	void delete(Profissional obj);
+	Profissional findById(Profissional obj);
 	List<Profissional> findByNome(String nome);
 	List<Profissional> findAll();
 	List<Profissional> findByEspecializacao(Especializacao especializacao);

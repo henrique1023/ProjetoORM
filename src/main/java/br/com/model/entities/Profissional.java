@@ -23,11 +23,11 @@ public class Profissional implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(name = "id_especializacao")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Especializacao especializacao;
 	
 	@Id
 	@Column(name = "id_profissional")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idProfi;
 	private String nome;
 	private String email;
