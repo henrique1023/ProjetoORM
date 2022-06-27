@@ -206,7 +206,7 @@ public class PacienteListController implements Initializable, DataChangeListener
 	}
 
 	private void removeEntity(Paciente obj) {
-		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
+		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação", "Quer apagar o cadastro?");
 
 		if (result.get() == ButtonType.OK) {
 			if (paciente == null) {

@@ -40,13 +40,15 @@ public class PacienteDaoHiber implements PacienteDao {
 		entityManager.merge(obj);
 		transaction.commit();
 	}
-
+	
+	//para deletar corretamente seguindo o ID do objeto se usa o find dentro do remove
+	//assim ele persiste o item
 	@Override
 	public void delete(Paciente obj) {
 		EntityManager entityManager = emf.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-		entityManager.remove(obj);
+		entityManager.remove(entityManager.find(Paciente.class, obj.getIdPaciente()));
 		transaction.commit();
 	}
 
@@ -62,7 +64,7 @@ public class PacienteDaoHiber implements PacienteDao {
 	public List<Paciente> findAll() {
 
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT paciente.* FROM paciente " + "ORDER BY nomePaciente");
+		sql.append("SELECT tb_paciente.* FROM tb_paciente " + "ORDER BY nomePaciente");
 		EntityManager entityManager = emf.createEntityManager();
 		Query query = entityManager.createNativeQuery(sql.toString());
 		List<Object[]> PacienteResultSet = query.getResultList();
@@ -100,7 +102,7 @@ public class PacienteDaoHiber implements PacienteDao {
 		if (o[4] != null) {
 			paciente.setTelefone(o[4].toString());
 		} else {
-			paciente.setTelefone("");
+			paciente.setTelefone(null);
 		}
 		return paciente;
 	}
@@ -110,7 +112,7 @@ public class PacienteDaoHiber implements PacienteDao {
 	public List<Paciente> findByNome(String nome) {
 
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT paciente.* FROM paciente WHERE nomePaciente LIKE '" + nome + "%'" + "ORDER BY nomePaciente");
+		sql.append("SELECT tb_paciente.* FROM tb_paciente WHERE nomePaciente LIKE '" + nome + "%'" + "ORDER BY nomePaciente");
 		EntityManager entityManager = emf.createEntityManager();
 		Query query = entityManager.createNativeQuery(sql.toString());
 		List<Object[]> PacienteResultSet = query.getResultList();
