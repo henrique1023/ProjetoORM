@@ -135,8 +135,10 @@ public class ProfissionalDaoHiber implements ProfissionalDao {
 	public List<Profissional> findByEspecializacao(Especializacao especializao) {
 
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT profissional.*,Espec.nome_espec as EspecNome " + "FROM profissional INNER JOIN espec "
-				+ "ON profissional.espec_id = espec.id " + "WHERE espec_id = ? " + "ORDER BY EspecNome");
+		sql.append("SELECT tb_profissional.*, tb_especializacao.nome_especializacao as EspecNome "
+				+ "FROM tb_profissional INNER JOIN tb_especializacao "
+				+ "ON tb_profissional.id_especializacao = tb_especializacao.id_especializacao"
+				+ "WHERE id_especializacao = ? " + "ORDER BY EspecNome");
 		EntityManager entityManager = emf.createEntityManager();
 		Query query = entityManager.createNativeQuery(sql.toString());
 		@SuppressWarnings("unchecked")

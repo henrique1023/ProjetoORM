@@ -1,5 +1,6 @@
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\entities\Especializacao.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\services\EspecializacaoService.java
+C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\dao\impl\ProfissionalDaoHiber.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\gui\PacienteListController.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\entities\Paciente.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\services\DiagnosticoService.java
@@ -15,7 +16,6 @@ C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\c
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\dao\impl\ConsultaDaoJDBC.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\dao\DaoFactory.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\dao\ConsultaDao.java
-C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\dao\impl\ProfissionalDaoJDBC.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\dao\PacienteDao.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\entities\Diagnostico.java
 C:\Users\Multi Portal\Documents\Aula\STS-4\projeto_engenharia\src\main\java\br\com\model\exceptions\ValidationException.java

@@ -38,11 +38,11 @@ br\com\model\services\ConsultaService.class
 br\com\model\entities\Paciente.class
 br\com\model\entities\Diagnostico.class
 br\com\gui\listeners\DataChangeListener.class
+br\com\model\dao\impl\ProfissionalDaoHiber.class
 br\com\gui\EspecializacaoController$2.class
 br\com\model\dao\ConsultaDao.class
 br\com\gui\util\Constraints.class
 br\com\gui\util\Utils$2.class
-br\com\model\dao\impl\ProfissionalDaoJDBC.class
 br\com\application\Main.class
 br\com\model\dao\DiagnosticoDao.class
 br\com\model\dao\impl\DiagnosticoDaoJDBC.class
