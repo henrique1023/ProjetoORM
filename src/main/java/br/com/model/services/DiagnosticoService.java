@@ -24,6 +24,6 @@ public class DiagnosticoService {
 	}
 	
 	public void remove(Diagnostico obj) {
-		dao.deleteById(obj.getIdDiag());
+		dao.deleteById(obj);
 	}
 }

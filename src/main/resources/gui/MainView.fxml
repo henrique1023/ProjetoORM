@@ -28,6 +28,11 @@
                     <MenuItem fx:id="menuItemMedico" mnemonicParsing="false" onAction="#onMenuItemMedicoAction" text="Medico" />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Cadastro Aux">
+                    <items>
+                      <MenuItem fx:id="menuItemDiagnostico" mnemonicParsing="false" onAction="#onMenuItemDiagnosticoAction" text="Tipo Diagnostico" />
+                    </items>
+                  </Menu>
                   <Menu mnemonicParsing="false" text="Sobre">
                     <items>
                       <MenuItem fx:id="menuItemSobre" mnemonicParsing="false" onAction="#onMenuItemSobreAction" text="Sistema" />

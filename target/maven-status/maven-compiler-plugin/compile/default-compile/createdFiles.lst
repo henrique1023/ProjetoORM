@@ -1,4 +1,5 @@
 br\com\model\dao\impl\ConsultaDaoJDBC.class
+br\com\gui\DiagnosticoFormController.class
 br\com\gui\PacienteListController$2.class
 br\com\gui\PacienteListController.class
 br\com\model\exceptions\ValidationException.class
@@ -7,11 +8,13 @@ br\com\model\services\ProfissionalService.class
 br\com\gui\util\Alerts.class
 br\com\gui\EspecializacaoController$1.class
 br\com\gui\MedicoListController$1.class
+br\com\gui\DiagnosticoController.class
 br\com\gui\MedicoFormController$1.class
 br\com\model\dao\impl\PacienteDaoHiber.class
 br\com\gui\util\Utils$3.class
 br\com\model\entities\Consulta.class
 br\com\model\dao\PacienteDao.class
+br\com\gui\DiagnosticoController$2.class
 br\com\gui\util\Utils.class
 br\com\gui\EspecializacaoFormController.class
 br\com\model\dao\impl\EspecializacaoDaoHiber.class
@@ -26,15 +29,16 @@ br\com\gui\MainViewController.class
 br\com\db\DbException.class
 br\com\model\dao\ProfissionalDao.class
 br\com\model\entities\Profissional.class
+br\com\gui\DiagnosticoController$1.class
 br\com\model\services\PacienteService.class
 br\com\model\services\DiagnosticoService.class
 br\com\gui\util\Utils$5.class
 br\com\model\entities\Especializacao.class
 br\com\model\dao\DaoFactory.class
 br\com\gui\MedicoListController.class
-br\com\db\DB.class
 br\com\gui\PacienteFormController.class
 br\com\model\services\ConsultaService.class
+br\com\model\dao\impl\DiagnosticoDaoHiber.class
 br\com\model\entities\Paciente.class
 br\com\model\entities\Diagnostico.class
 br\com\gui\listeners\DataChangeListener.class
@@ -45,4 +49,3 @@ br\com\gui\util\Constraints.class
 br\com\gui\util\Utils$2.class
 br\com\application\Main.class
 br\com\model\dao\DiagnosticoDao.class
-br\com\model\dao\impl\DiagnosticoDaoJDBC.class

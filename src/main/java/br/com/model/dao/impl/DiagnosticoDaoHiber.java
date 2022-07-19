@@ -9,29 +9,29 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import br.com.model.dao.EspecializacaoDao;
-import br.com.model.entities.Especializacao;
+import br.com.model.dao.DiagnosticoDao;
+import br.com.model.entities.Diagnostico;
 
-public class EspecializacaoDaoHiber implements EspecializacaoDao{
+public class DiagnosticoDaoHiber implements DiagnosticoDao{
 
 	private EntityManagerFactory emf;
 
-	public EspecializacaoDaoHiber(EntityManagerFactory emf) {
+	public DiagnosticoDaoHiber(EntityManagerFactory emf) {
 		this.emf = emf;
 	}
-
+	
 	@Override
-	public void insert(Especializacao obj) {
+	public void insert(Diagnostico obj) {
 		EntityManager entityManager = emf.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-		System.out.println(obj.getIdEspeci());
+		System.out.println(obj.getIdDiag());
 		entityManager.persist(obj);
 		transaction.commit();
 	}
 
 	@Override
-	public void update(Especializacao obj) {
+	public void update(Diagnostico obj) {
 		EntityManager entityManager = emf.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
@@ -40,39 +40,38 @@ public class EspecializacaoDaoHiber implements EspecializacaoDao{
 	}
 
 	@Override
-	public void delete(Especializacao obj) {
+	public void deleteById(Diagnostico obj) {
 		EntityManager entityManager = emf.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-		entityManager.remove(entityManager.find(Especializacao.class, obj.getIdEspeci()));
+		entityManager.remove(entityManager.find(Diagnostico.class, obj.getIdDiag()));
 		transaction.commit();
 	}
 
 	@Override
-	public Especializacao findById(int id) {
+	public Diagnostico findById(Integer id) {
 		EntityManager entityManager = emf.createEntityManager();
-		Especializacao obj = new Especializacao();
-		obj = entityManager.find(Especializacao.class, id);
+		Diagnostico obj = new Diagnostico();
+		obj = entityManager.find(Diagnostico.class, id);
 		return obj;
 	}
 
 	@Override
-	public List<Especializacao> findAll() {
-
+	public List<Diagnostico> findAll() {
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT tb_especializacao.* FROM tb_especializacao " + "ORDER BY nome_especializacao");
+		sql.append("SELECT tb_diagnostico.* FROM tb_diagnostico " + "ORDER BY nome_diagnostico");
 		EntityManager entityManager = emf.createEntityManager();
 		Query query = entityManager.createNativeQuery(sql.toString());
 		@SuppressWarnings("unchecked")
-		List<Object[]> especResultSet = query.getResultList();
-		List<Especializacao> list = new ArrayList<>();
-		if (!especResultSet.isEmpty()) {
-			for (Object[] o : especResultSet) {
+		List<Object[]> diagResultSet = query.getResultList();
+		List<Diagnostico> list = new ArrayList<>();
+		if (!diagResultSet.isEmpty()) {
+			for (Object[] o : diagResultSet) {
 
-				Especializacao espec;
+				Diagnostico diag;
 				try {
-					espec = instatiateEspecializacao(o);
-					list.add(espec);
+					diag = instatiateDiagnostico(o);
+					list.add(diag);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -82,10 +81,10 @@ public class EspecializacaoDaoHiber implements EspecializacaoDao{
 		return list;
 	}
 
-	private Especializacao instatiateEspecializacao(Object[] o) throws SQLException {
-		Especializacao espec = new Especializacao();
-		espec.setIdEspeci(Integer.parseInt(o[0].toString()));
-		espec.setNomeEspeci(o[1].toString());
-		return espec;
+	private Diagnostico instatiateDiagnostico(Object[] o) throws SQLException {
+		Diagnostico diag = new Diagnostico();
+		diag.setIdDiag(Integer.parseInt(o[0].toString()));
+		diag.setNomeDiag(o[1].toString());
+		return diag;
 	}
 }

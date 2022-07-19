@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 import br.com.application.Main;
 import br.com.gui.util.Alerts;
+import br.com.model.services.DiagnosticoService;
 import br.com.model.services.EspecializacaoService;
 import br.com.model.services.PacienteService;
 import br.com.model.services.ProfissionalService;
@@ -30,6 +31,9 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemConsulta;
 	
 	@FXML
+	private MenuItem menuItemDiagnostico;
+	
+	@FXML
 	private MenuItem menuItemEspecializacao;
 	
 	@FXML
@@ -49,6 +53,14 @@ public class MainViewController implements Initializable {
 	@FXML
 	private void onMenuItemConsultaAction() {
 		System.out.println("OK");
+	}
+	
+	@FXML
+	private void onMenuItemDiagnosticoAction() {
+		loadView("/gui/DiagnosticoList.fxml",(DiagnosticoController controller) ->{
+			controller.setService(new DiagnosticoService());
+			controller.updateTableView();
+		});
 	}
 	
 	@FXML

@@ -3,6 +3,7 @@ package br.com.model.dao;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import br.com.model.dao.impl.DiagnosticoDaoHiber;
 import br.com.model.dao.impl.EspecializacaoDaoHiber;
 import br.com.model.dao.impl.PacienteDaoHiber;
 import br.com.model.dao.impl.ProfissionalDaoHiber;
@@ -12,7 +13,7 @@ public class DaoFactory {
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo-jpa");
 	
 	public static DiagnosticoDao createDiagnosticoDao() {
-		return null;
+		return new DiagnosticoDaoHiber(emf);
 	}
 	
 	public static ConsultaDao createConsultaDao() {

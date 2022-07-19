@@ -8,7 +8,7 @@ public interface DiagnosticoDao {
 	
 	void insert(Diagnostico obj);
 	void update(Diagnostico obj);
-	void deleteById(Integer id);
+	void deleteById(Diagnostico obj);
 	Diagnostico findById(Integer id);
 	List<Diagnostico> findAll();
 }
