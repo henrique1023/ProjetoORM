@@ -93,9 +93,11 @@ public class DiagnosticoFormController implements Initializable {
 
 		if (txtNome.getText() == null || txtNome.getText().trim().equals("")) {
 			exception.addError("nome", "Campo nao preenchido");
-		}
-
+		}else {
 		return obj;
+		}
+		
+		return null;
 	}
 
 	@FXML
