@@ -2,6 +2,7 @@ package br.com.model.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,19 +17,12 @@ import javax.persistence.Table;
 @Table(name = "tb_consulta")
 public class Consulta implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id_consulta")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idConsulta;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_diagnostico")
-	private Diagnostico diagnostico;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_paciente")
@@ -42,16 +36,20 @@ public class Consulta implements Serializable{
 	@Column(name = "data_consulta")
 	private Date dataConsul;
 	
+	@Column(name = "deletado", columnDefinition = "varchar(1) default 'F'" )
+	private String deletado;
+	
 	public Consulta() {
 	}
-	
-	public Consulta(Integer idConsulta, Diagnostico diagnostico, Paciente paciente, Profissional profissional,
-			Date dataConsul) {
+
+	public Consulta(Integer idConsulta, Paciente paciente, Profissional profissional,
+			Date dataConsul, String deletado) {
+		super();
 		this.idConsulta = idConsulta;
-		this.diagnostico = diagnostico;
 		this.paciente = paciente;
 		this.profissional = profissional;
 		this.dataConsul = dataConsul;
+		this.deletado = deletado;
 	}
 
 	public Integer getIdConsulta() {
@@ -60,14 +58,6 @@ public class Consulta implements Serializable{
 
 	public void setIdConsulta(Integer idConsulta) {
 		this.idConsulta = idConsulta;
-	}
-
-	public Diagnostico getDiagnostico() {
-		return diagnostico;
-	}
-
-	public void setDiagnostico(Diagnostico diagnostico) {
-		this.diagnostico = diagnostico;
 	}
 
 	public Paciente getPaciente() {
@@ -93,5 +83,20 @@ public class Consulta implements Serializable{
 	public void setDataConsul(Date dataConsul) {
 		this.dataConsul = dataConsul;
 	}
+
+	public String getDeletado() {
+		return deletado;
+	}
+
+	public void setDeletado(String deletado) {
+		this.deletado = deletado;
+	}
+
+	@Override
+	public String toString() {
+		return "Consulta [idConsulta=" + idConsulta + ", paciente=" + paciente
+				+ ", profissional=" + profissional + ", dataConsul=" + dataConsul + ", deletado=" + deletado + "]";
+	}
+	
 
 }

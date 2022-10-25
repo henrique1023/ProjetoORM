@@ -53,9 +53,10 @@ public class PacienteDaoHiber implements PacienteDao {
 	}
 
 	@Override
-	public Paciente findById(Paciente obj) {
+	public Paciente findById(Integer id) {
+		Paciente obj = new Paciente();
 		EntityManager entityManager = emf.createEntityManager();
-		obj = entityManager.find(Paciente.class, obj.getIdPaciente());
+		obj = entityManager.find(Paciente.class, id);
 		return obj;
 	}
 

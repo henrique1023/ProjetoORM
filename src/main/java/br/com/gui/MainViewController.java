@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 import br.com.application.Main;
 import br.com.gui.util.Alerts;
+import br.com.model.services.ConsultaService;
 import br.com.model.services.DiagnosticoService;
 import br.com.model.services.EspecializacaoService;
 import br.com.model.services.PacienteService;
@@ -52,7 +53,10 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	private void onMenuItemConsultaAction() {
-		System.out.println("OK");
+		loadView("/gui/AgendamentoList.fxml",(AgendamentoListController controller) ->{
+			controller.setConsultaService(new ConsultaService());
+			controller.updateTableView();
+		});
 	}
 	
 	@FXML

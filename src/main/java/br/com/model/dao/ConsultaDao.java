@@ -10,10 +10,10 @@ public interface ConsultaDao {
 	void insert(Consulta obj);
 
 	void update(Consulta obj);
+	
+	void deleteId(Consulta obj);
 
-	void deleteById(Integer id);
-
-	Consulta findById(Integer id);
+	Consulta findById(Consulta obj);
 
 	List<Consulta> findAll();
 }

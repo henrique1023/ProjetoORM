@@ -30,4 +30,8 @@ public class ProfissionalService {
 	public List<Profissional> findByNome(String nome) {
 		return dao.findByNome(nome);
 	}
+	
+	public Profissional findById(Integer id) {
+		return dao.findById(id);
+	}
 }

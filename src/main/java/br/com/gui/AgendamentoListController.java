@@ -8,12 +8,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import application.mainfx.Main;
-import db.DbException;
-import gui.listeners.DataChangeListener;
-import gui.util.Alerts;
-import gui.util.Utils;
+import br.com.application.Main;
+import br.com.db.DbException;
+import br.com.gui.listeners.DataChangeListener;
+import br.com.gui.util.Alerts;
+import br.com.gui.util.Utils;
+import br.com.model.entities.Consulta;
+import br.com.model.entities.Especializacao;
+import br.com.model.services.ConsultaService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,15 +37,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Especializacao;
-import model.entities.Consulta;
-import model.services.EspecializacaoService;
-import model.services.ConsultaService;
 
 public class AgendamentoListController implements Initializable, DataChangeListener{
 
 
-	private ConsultaService medicoService;
+	private ConsultaService ConsultaService;
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -77,7 +77,7 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 	private TableColumn<Consulta, String> tableColumnStatus;
 
 	@FXML
-	private TableColumn<Consulta, Especializacao> tableColumnEspec;
+	private TableColumn<Consulta, String> tableColumnEspec;
 	
 	@FXML
 	private TableColumn<Consulta, Consulta> tableColumnEDIT;
@@ -98,8 +98,8 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 	@FXML
 	public void onBtBuscar(ActionEvent event) {
 //		if(txtCampoBuscar.getText() == null || txtCampoBuscar.getText().trim().equals("")) {
-//			updateTableView();
-//			initializeNodes();
+			updateTableView();
+			initializeNodes();
 //		}else {
 //			List<Consulta> list = medicoService.findByNome(txtCampoBuscar.getText());
 //			obsList = FXCollections.observableArrayList(list);
@@ -114,16 +114,16 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 
 	}
 	
-	public void setMedicoService(ConsultaService service) {
-		this.medicoService = service;
+	public void setConsultaService(ConsultaService service) {
+		this.ConsultaService = service;
 	}
 	
 	public void updateTableView() {
-		if (medicoService == null) {
+		if (ConsultaService == null) {
 			throw new IllegalStateException("Service was null");
 		}
 
-		List<Consulta> list = medicoService.findAll();
+		List<Consulta> list = ConsultaService.findAll();
 		// somente um ObservableList pode passar parametros para o setItems
 		obsList = FXCollections.observableArrayList(list);
 		tableViewConsulta.setItems(obsList);
@@ -132,12 +132,11 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 	}
 
 	private void initializeNodes() {
-		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		tableColumnData.setCellValueFactory(new PropertyValueFactory<>("dataAniver"));
-		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-		tableColumnSalario.setCellValueFactory(new PropertyValueFactory<>("salarioBase"));
-		tableColumnEspec.setCellValueFactory(new PropertyValueFactory<>("especializacao"));
-		Utils.formatTableColumnDouble(tableColumnSalario, 2);
+		tableColumnNome.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getPaciente().getNomePaciente()));
+		tableColumnData.setCellValueFactory(new PropertyValueFactory<>("dataConsul"));
+		tableColumnMedico.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getProfissional().getNome()));
+		tableColumnEspec.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getProfissional().getEspecializacao().getNomeEspeci()));
+//		tableColumnStatus.setCellValueFactory(new PropertyValueFactory<>(""));
 		Utils.formatTableColumnDate(tableColumnData, "dd/MM/yyyy");
 		// essa metodo faz a tabela acompanhar o tamanho da tela
 		Stage stage = (Stage) Main.getMainScene().getWindow();
@@ -153,8 +152,8 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 			// sempre que tem que ter um objeto no formulario
 			// precisa injetar ele aqui
 			MedicoFormController controller = loader.getController();
-			controller.setEntidade(obj);
-			controller.setService(new ConsultaService(), new EspecializacaoService());
+//			controller.setEntidade(obj);
+//			controller.setService(new ConsultaService(), new EspecializacaoService());
 			controller.loadAssociatedObjects();
 			// esse metodo que gera a atualização após salvar um novo departamento
 			controller.subscribeDataChangeListener(this);
@@ -222,11 +221,11 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
 		
 		if(result.get() == ButtonType.OK) {
-			if(medicoService == null) {
+			if(ConsultaService == null) {
 				throw new IllegalStateException("Service was null");
 			}
 			try {
-				medicoService.remove(obj);
+				ConsultaService.remove(obj);
 				updateTableView();
 			}catch (DbException e) {
 				Alerts.showAlert("Error removing object", null, e.getMessage(), AlertType.ERROR);

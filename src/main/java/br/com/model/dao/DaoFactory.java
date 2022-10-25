@@ -3,6 +3,7 @@ package br.com.model.dao;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import br.com.model.dao.impl.ConsultaDaoJDBC;
 import br.com.model.dao.impl.DiagnosticoDaoHiber;
 import br.com.model.dao.impl.EspecializacaoDaoHiber;
 import br.com.model.dao.impl.PacienteDaoHiber;
@@ -17,7 +18,7 @@ public class DaoFactory {
 	}
 	
 	public static ConsultaDao createConsultaDao() {
-		return null;
+		return new ConsultaDaoJDBC(emf);
 	}
 	
 	public static PacienteDao createPacienteDao() {

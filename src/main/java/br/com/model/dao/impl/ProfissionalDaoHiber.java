@@ -54,9 +54,10 @@ public class ProfissionalDaoHiber implements ProfissionalDao {
 	}
 
 	@Override
-	public Profissional findById(Profissional obj) {
+	public Profissional findById(Integer id) {
+		Profissional obj = new Profissional();
 		EntityManager entityManager = emf.createEntityManager();
-		obj = entityManager.find(Profissional.class, obj.getIdProfi());
+		obj = entityManager.find(Profissional.class, id);
 		return obj;
 	}
 

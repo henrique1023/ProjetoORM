@@ -25,7 +25,7 @@ public class Main extends Application{
 
 			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("Consultório Mário Caetano");
+			primaryStage.setTitle("Consultorio Mario Caetano");
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

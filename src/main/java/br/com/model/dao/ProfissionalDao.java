@@ -9,7 +9,7 @@ public interface ProfissionalDao {
 	void insert(Profissional obj);
 	void update(Profissional obj);
 	void delete(Profissional obj);
-	Profissional findById(Profissional obj);
+	Profissional findById(Integer id);
 	List<Profissional> findByNome(String nome);
 	List<Profissional> findAll();
 	List<Profissional> findByEspecializacao(Especializacao especializacao);

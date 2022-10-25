@@ -30,4 +30,8 @@ public class PacienteService {
 	public List<Paciente> findByNome(String nome){
 		return dao.findByNome(nome);
 	}
+	
+	public Paciente findById(Integer id) {
+		return dao.findById(id);
+	}
 }

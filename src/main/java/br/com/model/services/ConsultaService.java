@@ -24,6 +24,6 @@ public class ConsultaService {
 	}
 	
 	public void remove(Consulta obj) {
-		dao.deleteById(obj.getIdConsulta());
+		dao.deleteId(obj);
 	}
 }
