@@ -1,5 +1,6 @@
 package br.com.model.services;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.model.dao.ConsultaDao;
@@ -25,5 +26,9 @@ public class ConsultaService {
 	
 	public void remove(Consulta obj) {
 		dao.deleteId(obj);
+	}
+	
+	public List<Consulta> findByCampos(String nome, String cpf, Date data) {
+		return dao.findByFilter(nome, cpf, data);
 	}
 }

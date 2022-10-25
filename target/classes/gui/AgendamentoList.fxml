@@ -45,8 +45,8 @@
                   <TextField fx:id="txtCampoNome" GridPane.columnIndex="1" />
                   <TextField fx:id="txtCampoCpf" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <DatePicker fx:id="dpDataConsulta" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button alignment="CENTER" fx:id="btNovo" contentDisplay="CENTER" mnemonicParsing="false" text="Criar Agendamento" GridPane.columnIndex="3" />
-                  <Button mnemonicParsing="false" fx:id="btBuscar" text="Pesquisar Agendamento" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Button fx:id="btNovo" onAction="#onBtNovoAction" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Criar Agendamento" GridPane.columnIndex="3" />
+                  <Button fx:id="btBuscar"  onAction="#onBtBuscar" mnemonicParsing="false" text="Pesquisar Agendamento" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </items>
@@ -56,10 +56,10 @@
             <TableColumn fx:id="tableColumnEDIT" prefWidth="61.0" />
             <TableColumn fx:id="tableColumnREMOVE" prefWidth="60.0" />
           	<TableColumn fx:id="tableColumnNome" prefWidth="123.0" text="Nome Paciente" />
+            <TableColumn fx:id="tableColumnCpf" prefWidth="101.0" text="CPF Paciente" />
          	<TableColumn fx:id="tableColumnData" prefWidth="119.0" text="Data Consulta" />
             <TableColumn fx:id="tableColumnEspec" prefWidth="131.0" text="Especialidade" />
-            <TableColumn fx:id="tableColumnMedico" prefWidth="75.0" text="Medico" />
-            <TableColumn fx:id="tableColumnStatus" prefWidth="101.0" text="Status Consulta" />
+            <TableColumn fx:id="tableColumnMedico" minWidth="-1.0" text="Medico" />
         </columns>
       </TableView>
    </children>

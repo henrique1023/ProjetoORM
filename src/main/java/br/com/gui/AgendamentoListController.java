@@ -12,9 +12,9 @@ import br.com.application.Main;
 import br.com.db.DbException;
 import br.com.gui.listeners.DataChangeListener;
 import br.com.gui.util.Alerts;
+import br.com.gui.util.Constraints;
 import br.com.gui.util.Utils;
 import br.com.model.entities.Consulta;
-import br.com.model.entities.Especializacao;
 import br.com.model.services.ConsultaService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -38,28 +38,26 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AgendamentoListController implements Initializable, DataChangeListener{
-
+public class AgendamentoListController implements Initializable, DataChangeListener {
 
 	private ConsultaService ConsultaService;
-	
+
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	@FXML
 	private Button btNovo;
-	
+
 	@FXML
 	private Button btBuscar;
-	
+
 	@FXML
 	private TextField txtCampoNome;
-	
+
 	@FXML
 	private TextField txtCampoCpf;
-	
+
 	@FXML
 	private DatePicker dpDataConsulta;
-
 
 	@FXML
 	private TableView<Consulta> tableViewConsulta;
@@ -72,40 +70,37 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 
 	@FXML
 	private TableColumn<Consulta, String> tableColumnMedico;
-	
+
 	@FXML
-	private TableColumn<Consulta, String> tableColumnStatus;
+	private TableColumn<Consulta, String> tableColumnCpf;
 
 	@FXML
 	private TableColumn<Consulta, String> tableColumnEspec;
-	
+
 	@FXML
 	private TableColumn<Consulta, Consulta> tableColumnEDIT;
 
 	@FXML
 	private TableColumn<Consulta, Consulta> tableColumnREMOVE;
-	
+
 	private ObservableList<Consulta> obsList;
-	
+
 	@FXML
 	public void onBtNovoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Consulta obj = new Consulta();
 		createDialogForm(obj, "/gui/MedicoForm.fxml", parentStage);
-		
+
 	}
-	
+
 	@FXML
 	public void onBtBuscar(ActionEvent event) {
-//		if(txtCampoBuscar.getText() == null || txtCampoBuscar.getText().trim().equals("")) {
-			updateTableView();
-			initializeNodes();
-//		}else {
-//			List<Consulta> list = medicoService.findByNome(txtCampoBuscar.getText());
-//			obsList = FXCollections.observableArrayList(list);
-//			tableViewConsulta.setItems(obsList);
-//			initializeNodes();
-//		}
+		String cpf = txtCampoCpf.getText();
+		List<Consulta> list = ConsultaService.findByCampos(txtCampoNome.getText(), cpf, null);
+		obsList = FXCollections.observableArrayList(list);
+		tableViewConsulta.setItems(obsList);
+		initializeNodes();
+
 	}
 
 	@Override
@@ -113,11 +108,11 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 		initializeNodes();
 
 	}
-	
+
 	public void setConsultaService(ConsultaService service) {
 		this.ConsultaService = service;
 	}
-	
+
 	public void updateTableView() {
 		if (ConsultaService == null) {
 			throw new IllegalStateException("Service was null");
@@ -132,17 +127,25 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 	}
 
 	private void initializeNodes() {
-		tableColumnNome.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getPaciente().getNomePaciente()));
+		Constraints.setTextFieldMaxLength(txtCampoNome, 30);
+		Constraints.setTextFieldInteger(txtCampoCpf);
+		Constraints.setTextFieldMaxLength(txtCampoCpf, 11);
+		tableColumnNome.setCellValueFactory(
+				(param) -> new SimpleStringProperty(param.getValue().getPaciente().getNomePaciente()));
 		tableColumnData.setCellValueFactory(new PropertyValueFactory<>("dataConsul"));
-		tableColumnMedico.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getProfissional().getNome()));
-		tableColumnEspec.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getProfissional().getEspecializacao().getNomeEspeci()));
-//		tableColumnStatus.setCellValueFactory(new PropertyValueFactory<>(""));
+		tableColumnMedico
+				.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getProfissional().getNome()));
+		tableColumnEspec.setCellValueFactory((param) -> new SimpleStringProperty(
+				param.getValue().getProfissional().getEspecializacao().getNomeEspeci()));
+		tableColumnCpf
+				.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getPaciente().getCpf()));
 		Utils.formatTableColumnDate(tableColumnData, "dd/MM/yyyy");
+		Utils.formatTableColumnCpf(tableColumnCpf);
 		// essa metodo faz a tabela acompanhar o tamanho da tela
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewConsulta.prefHeightProperty().bind(stage.heightProperty());
 	}
-	
+
 	private void createDialogForm(Consulta obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
@@ -191,8 +194,7 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/MedicoForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/MedicoForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
@@ -216,18 +218,18 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 
 		});
 	}
-	
+
 	private void removeEntity(Consulta obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
-		
-		if(result.get() == ButtonType.OK) {
-			if(ConsultaService == null) {
+
+		if (result.get() == ButtonType.OK) {
+			if (ConsultaService == null) {
 				throw new IllegalStateException("Service was null");
 			}
 			try {
 				ConsultaService.remove(obj);
 				updateTableView();
-			}catch (DbException e) {
+			} catch (DbException e) {
 				Alerts.showAlert("Error removing object", null, e.getMessage(), AlertType.ERROR);
 			}
 		}

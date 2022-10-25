@@ -3,6 +3,7 @@ package br.com.model.dao.impl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +83,52 @@ public class ConsultaDaoJDBC implements ConsultaDao {
 		StringBuffer sql = new StringBuffer();
 		sql.append("Select id_consulta, id_paciente, id_profissional, data_consulta, deletado from tb_consulta ");
 		sql.append("where deletado = 'F';");
+		
+		EntityManager entityManager = emf.createEntityManager();
+		Query query = entityManager.createNativeQuery(sql.toString());
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> consultaRS = query.getResultList();
+		List<Consulta> list = new ArrayList<>();
+		Map<Integer, Profissional> mapPro = new HashMap<>();
+		Map<Integer, Paciente> mapPac = new HashMap<>();
+		
+		if(!consultaRS.isEmpty()) {
+			for (Object[] o : consultaRS) {
+				Paciente pac = mapPac.get(Integer.parseInt(o[1].toString()));
+				Profissional pro = mapPro.get(Integer.parseInt(o[2].toString()));
+				if(pro == null) {
+					ProfissionalService ser = new ProfissionalService();
+					pro = ser.findById(Integer.parseInt(o[2].toString()));
+					mapPro.put(Integer.parseInt(o[2].toString()), pro);
+				}
+				
+				if(pac == null) {
+					PacienteService ser = new PacienteService();
+					pac = ser.findById(Integer.parseInt(o[1].toString()));
+				}
+				
+				Consulta consu = new Consulta();
+				
+				consu = instatiateConsulta(o, pro, pac);
+				list.add(consu);
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Consulta> findByFilter(String nome, String cpf, Date data) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("select a.id_consulta, a.id_paciente, a.id_profissional, a.data_consulta, a.deletado, b.nomePaciente, b.cpf ");
+		sql.append("from tb_consulta as a inner join tb_paciente as b on a.id_paciente = b.id_paciente and ");
+		sql.append("a.deletado = 'F' ");
+		if(nome != null && !nome.trim().equals("")) {
+			sql.append("and b.nomePaciente LIKE '" + nome + "%' ");
+		}
+		if(cpf != null && !cpf.trim().equals("")) {
+			sql.append("AND b.cpf = "+ cpf + " ");
+		}
 		
 		EntityManager entityManager = emf.createEntityManager();
 		Query query = entityManager.createNativeQuery(sql.toString());
