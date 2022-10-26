@@ -2,7 +2,6 @@ package br.com.model.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,24 +31,27 @@ public class Consulta implements Serializable{
 	@JoinColumn(name = "id_profissional")
 	private Profissional profissional;
 	
-	@Id
 	@Column(name = "data_consulta")
 	private Date dataConsul;
 	
 	@Column(name = "deletado", columnDefinition = "varchar(1) default 'F'" )
-	private String deletado;
+	private String deletado = "F";
+	
+	@Column(name = "horario_consulta")
+	private Integer horario;
 	
 	public Consulta() {
 	}
 
 	public Consulta(Integer idConsulta, Paciente paciente, Profissional profissional,
-			Date dataConsul, String deletado) {
+			Date dataConsul, String deletado, Integer horario) {
 		super();
 		this.idConsulta = idConsulta;
 		this.paciente = paciente;
 		this.profissional = profissional;
 		this.dataConsul = dataConsul;
 		this.deletado = deletado;
+		this.horario = horario;
 	}
 
 	public Integer getIdConsulta() {
@@ -90,6 +92,14 @@ public class Consulta implements Serializable{
 
 	public void setDeletado(String deletado) {
 		this.deletado = deletado;
+	}
+
+	public Integer getHorario() {
+		return horario;
+	}
+
+	public void setHorario(Integer horario) {
+		this.horario = horario;
 	}
 
 	@Override

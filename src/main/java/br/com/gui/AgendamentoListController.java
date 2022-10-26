@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import org.hibernate.dialect.ProgressDialect;
+
+import com.mysql.cj.util.Util;
+
 import br.com.application.Main;
 import br.com.db.DbException;
 import br.com.gui.listeners.DataChangeListener;
@@ -16,6 +20,8 @@ import br.com.gui.util.Constraints;
 import br.com.gui.util.Utils;
 import br.com.model.entities.Consulta;
 import br.com.model.services.ConsultaService;
+import br.com.model.services.PacienteService;
+import br.com.model.services.ProfissionalService;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -76,6 +82,9 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 
 	@FXML
 	private TableColumn<Consulta, String> tableColumnEspec;
+	
+	@FXML
+	private TableColumn<Consulta, String> tableColumnHorario;
 
 	@FXML
 	private TableColumn<Consulta, Consulta> tableColumnEDIT;
@@ -89,7 +98,7 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 	public void onBtNovoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Consulta obj = new Consulta();
-		createDialogForm(obj, "/gui/MedicoForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/AgendamentoForm.fxml", parentStage);
 
 	}
 
@@ -133,6 +142,8 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 		tableColumnNome.setCellValueFactory(
 				(param) -> new SimpleStringProperty(param.getValue().getPaciente().getNomePaciente()));
 		tableColumnData.setCellValueFactory(new PropertyValueFactory<>("dataConsul"));
+		tableColumnHorario.setCellValueFactory((param) -> new SimpleStringProperty(
+				param.getValue().getHorario().toString()));
 		tableColumnMedico
 				.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getProfissional().getNome()));
 		tableColumnEspec.setCellValueFactory((param) -> new SimpleStringProperty(
@@ -141,6 +152,7 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 				.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getPaciente().getCpf()));
 		Utils.formatTableColumnDate(tableColumnData, "dd/MM/yyyy");
 		Utils.formatTableColumnCpf(tableColumnCpf);
+		Utils.formatTableColumnHorario(tableColumnHorario);
 		// essa metodo faz a tabela acompanhar o tamanho da tela
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewConsulta.prefHeightProperty().bind(stage.heightProperty());
@@ -154,9 +166,9 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 			// esse metodo injeta o paciente iniciando o objeto
 			// sempre que tem que ter um objeto no formulario
 			// precisa injetar ele aqui
-			MedicoFormController controller = loader.getController();
-//			controller.setEntidade(obj);
-//			controller.setService(new ConsultaService(), new EspecializacaoService());
+			AgendamentoFormController controller = loader.getController();
+			controller.setEntidade(obj);
+			controller.setService(new ProfissionalService(),new PacienteService(),new ConsultaService());
 			controller.loadAssociatedObjects();
 			// esse metodo que gera a atualização após salvar um novo departamento
 			controller.subscribeDataChangeListener(this);
@@ -164,7 +176,7 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 
 			Stage dialogStage = new Stage();
 
-			dialogStage.setTitle("Modificar Médico");
+			dialogStage.setTitle("Agendamento Form");
 			// passa o FXML departmentForm como cena
 			dialogStage.setScene(new Scene(pane));
 			// Essa janela não pode ser redimencionada
@@ -194,7 +206,7 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> createDialogForm(obj, "/gui/MedicoForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/AgendamentoForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}

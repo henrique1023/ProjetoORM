@@ -75,13 +75,15 @@ public class ConsultaDaoJDBC implements ConsultaDao {
 		}
 		consu.setPaciente(pac);
 		consu.setProfissional(pro);
+		consu.setHorario(Integer.parseInt(o[5].toString()));
+		
 		return consu;
 	}
 
 	@Override
 	public List<Consulta> findAll() {
 		StringBuffer sql = new StringBuffer();
-		sql.append("Select id_consulta, id_paciente, id_profissional, data_consulta, deletado from tb_consulta ");
+		sql.append("Select id_consulta, id_paciente, id_profissional, data_consulta, deletado, horario_consulta from tb_consulta ");
 		sql.append("where deletado = 'F';");
 		
 		EntityManager entityManager = emf.createEntityManager();

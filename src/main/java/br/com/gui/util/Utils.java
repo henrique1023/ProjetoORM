@@ -105,6 +105,25 @@ public class Utils {
 		});
 	}
 	
+	public static <T> void formatTableColumnHorario(TableColumn<T, String> tableColumn) {
+		tableColumn.setCellFactory(column -> {
+			TableCell<T, String> cell = new TableCell<T, String>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+					if (empty ) {
+						setText(null);
+					} else {
+						if (item != "" && item != null) {
+							setText(item + " Horas");
+						}
+					}
+				}
+			};
+			return cell;
+		});
+	}
+	
 	public static <T> void formatTableColumnTelefone(TableColumn<T, String> tableColumn) {
 		tableColumn.setCellFactory(column -> {
 			TableCell<T, String> cell = new TableCell<T, String>() {
