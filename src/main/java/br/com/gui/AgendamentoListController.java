@@ -2,15 +2,12 @@ package br.com.gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import org.hibernate.dialect.ProgressDialect;
-
-import com.mysql.cj.util.Util;
 
 import br.com.application.Main;
 import br.com.db.DbException;
@@ -48,8 +45,6 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 
 	private ConsultaService ConsultaService;
 
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
 	@FXML
 	private Button btNovo;
 
@@ -82,7 +77,7 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 
 	@FXML
 	private TableColumn<Consulta, String> tableColumnEspec;
-	
+
 	@FXML
 	private TableColumn<Consulta, String> tableColumnHorario;
 
@@ -104,11 +99,19 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 
 	@FXML
 	public void onBtBuscar(ActionEvent event) {
-		String cpf = txtCampoCpf.getText();
-		List<Consulta> list = ConsultaService.findByCampos(txtCampoNome.getText(), cpf, null);
-		obsList = FXCollections.observableArrayList(list);
-		tableViewConsulta.setItems(obsList);
-		initializeNodes();
+		if (txtCampoNome.getText() != null || txtCampoCpf.getText() != null || dpDataConsulta != null) {
+			String cpf = txtCampoCpf.getText();
+			Instant instant = null;
+			Date data = null;
+			if (dpDataConsulta.getValue() != null) {
+				instant = Instant.from(dpDataConsulta.getValue().atStartOfDay(ZoneId.systemDefault()));
+				data = Date.from(instant);
+			}
+			List<Consulta> list = ConsultaService.findByCampos(txtCampoNome.getText(), cpf, data);
+			obsList = FXCollections.observableArrayList(list);
+			tableViewConsulta.setItems(obsList);
+			initializeNodes();
+		}
 
 	}
 
@@ -142,8 +145,8 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 		tableColumnNome.setCellValueFactory(
 				(param) -> new SimpleStringProperty(param.getValue().getPaciente().getNomePaciente()));
 		tableColumnData.setCellValueFactory(new PropertyValueFactory<>("dataConsul"));
-		tableColumnHorario.setCellValueFactory((param) -> new SimpleStringProperty(
-				param.getValue().getHorario().toString()));
+		tableColumnHorario
+				.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getHorario().toString()));
 		tableColumnMedico
 				.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getProfissional().getNome()));
 		tableColumnEspec.setCellValueFactory((param) -> new SimpleStringProperty(
@@ -168,7 +171,7 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 			// precisa injetar ele aqui
 			AgendamentoFormController controller = loader.getController();
 			controller.setEntidade(obj);
-			controller.setService(new ProfissionalService(),new PacienteService(),new ConsultaService());
+			controller.setService(new ProfissionalService(), new PacienteService(), new ConsultaService());
 			controller.loadAssociatedObjects();
 			// esse metodo que gera a atualização após salvar um novo departamento
 			controller.subscribeDataChangeListener(this);
@@ -206,7 +209,8 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> createDialogForm(obj, "/gui/AgendamentoForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(
+						event -> createDialogForm(obj, "/gui/AgendamentoForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
@@ -215,7 +219,7 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 	private void initRemoveButtons() {
 		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tableColumnREMOVE.setCellFactory(param -> new TableCell<Consulta, Consulta>() {
-			private final Button button = new Button("Delete");
+			private final Button button = new Button("Apagar");
 
 			@Override
 			protected void updateItem(Consulta obj, boolean empty) {
@@ -232,7 +236,7 @@ public class AgendamentoListController implements Initializable, DataChangeListe
 	}
 
 	private void removeEntity(Consulta obj) {
-		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
+		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação", "Que cancelar esse agendamento?");
 
 		if (result.get() == ButtonType.OK) {
 			if (ConsultaService == null) {

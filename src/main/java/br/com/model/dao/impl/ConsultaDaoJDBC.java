@@ -122,7 +122,12 @@ public class ConsultaDaoJDBC implements ConsultaDao {
 	@Override
 	public List<Consulta> findByFilter(String nome, String cpf, Date data) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("select a.id_consulta, a.id_paciente, a.id_profissional, a.data_consulta, a.deletado, b.nomePaciente, b.cpf ");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dataString = "";
+		if(data != null) {
+			dataString = sdf.format(data);
+		}
+		sql.append("select a.id_consulta, a.id_paciente, a.id_profissional, a.data_consulta, a.deletado, a.horario_consulta, b.nomePaciente, b.cpf ");
 		sql.append("from tb_consulta as a inner join tb_paciente as b on a.id_paciente = b.id_paciente and ");
 		sql.append("a.deletado = 'F' ");
 		if(nome != null && !nome.trim().equals("")) {
@@ -131,6 +136,10 @@ public class ConsultaDaoJDBC implements ConsultaDao {
 		if(cpf != null && !cpf.trim().equals("")) {
 			sql.append("AND b.cpf = "+ cpf + " ");
 		}
+		if(data != null) {
+			sql.append("AND a.data_consulta BETWEEN '"+ dataString +" 00:00:01.0000000 ' and '"+ dataString +" 23:59:59.0000000' ");
+		}
+		
 		
 		EntityManager entityManager = emf.createEntityManager();
 		Query query = entityManager.createNativeQuery(sql.toString());
